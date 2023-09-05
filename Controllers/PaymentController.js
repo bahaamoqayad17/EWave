@@ -1,5 +1,6 @@
 const factory = require("./FactoryHandler");
 const Payment = require("../Models/Payment");
+const User = require("../Models/User");
 const CatchAsync = require("../utils/CatchAsync");
 const paypal = require("paypal-rest-sdk");
 
@@ -67,8 +68,8 @@ exports.success = CatchAsync(async (req, res, next) => {
 
   paypal.payment.execute(paymentId, executePayment, (error, payment) => {
     if (error) {
-      console.error(error);
-      res.send("Something went wrong");
+      console.log(error);
+      res.send("Something went wrong test");
     } else {
       // Update the payment status in your database
       Payment.findOneAndUpdate(
@@ -76,10 +77,23 @@ exports.success = CatchAsync(async (req, res, next) => {
         { status: payment.state },
         (updateError, updatedPayment) => {
           if (updateError) {
-            console.error(updateError);
-            res.send("Something went wrong");
+            console.log(updateError);
+            res.send("Something went wrong easd");
           } else {
-            res.send("Payment Completed successfully");
+            User.findByIdAndUpdate(
+              { _id: updatedPayment.user._id },
+              {
+                is_paid: 1,
+                expire_payment: Date.now() + 30 * 24 * 60 * 60 * 1000,
+              },
+              (updateError, updatedUser) => {
+                if (updateError) {
+                  console.log(updateError);
+                  res.send("Something went wrong");
+                }
+                res.send("Payment Completed successfully");
+              }
+            );
           }
         }
       );
