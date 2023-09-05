@@ -1,0 +1,17 @@
+const express = require("express");
+const VideoController = require("../Controllers/VideoController");
+const AuthController = require("../Controllers/AuthController");
+
+const router = express.Router();
+
+router.use(AuthController.protect);
+
+router.route("/").get(VideoController.index).post(VideoController.create);
+
+router
+  .route("/:id")
+  .get(VideoController.show)
+  .put(VideoController.update)
+  .delete(VideoController.delete);
+
+module.exports = router;
