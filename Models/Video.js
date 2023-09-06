@@ -14,6 +14,10 @@ const Schema = mongoose.Schema(
       type: String,
       required: [true, "description is required"],
     },
+    status: {
+      type: String,
+      enum: ["Paid", "Free"],
+    },
   },
   { timestamps: true }
 );

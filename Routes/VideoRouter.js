@@ -7,6 +7,8 @@ const router = express.Router();
 router.use(AuthController.protect);
 
 router.route("/").get(VideoController.index).post(VideoController.create);
+router.route("/paid").get(VideoController.paid);
+router.route("/free").get(VideoController.free);
 
 router
   .route("/:id")
