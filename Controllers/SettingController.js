@@ -13,18 +13,20 @@ exports.delete = factory.delete(Setting);
 exports.pushNotification = CatchAsync(async (req, res, next) => {
   const tokens = await User.find().select("fcm_token");
 
+  const validTokens = tokens.filter((token) => token.fcm_token);
+
   const message = {
     notification: {
       title: req.body.title,
       body: req.body.body,
     },
-    tokens: tokens.map((token) => token.fcm_token),
+    tokens: validTokens.map((token) => token.fcm_token),
   };
-  // const response = await admin.messaging().sendToDevice(tokens, message);
-  const response = await admin.messaging().sendMulticast(message);
+
+  const data = await admin.messaging().sendMulticast(message);
 
   res.status(200).json({
     status: "success",
-    data: response,
+    data,
   });
 });
