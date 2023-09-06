@@ -18,7 +18,7 @@ router
 router.route("/paid").get(RecommedationController.paid);
 
 router.route("/paid/:category").get(RecommedationController.paidCategory);
-router.route("/unpaid/:category").get(RecommedationController.unPaidCategory);
+router.route("/unpaid/").get(RecommedationController.unPaidCategory);
 
 router
   .route("/:id")

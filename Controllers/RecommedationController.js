@@ -95,9 +95,7 @@ exports.paidCategory = CatchAsync(async (req, res, next) => {
 });
 
 exports.unPaidCategory = CatchAsync(async (req, res, next) => {
-  const { category } = req.params;
-
-  const data = await Recommedation.find({ is_paid: 0, category });
+  const data = await Recommedation.find({ is_paid: 0 });
 
   if (!data) {
     return next(new AppError("No document found with that ID", 404));
