@@ -27,7 +27,6 @@ class ApiFeatures {
         $or: search,
       };
     }
-    console.log(search);
     if (searchInput) {
       this.query = this.query.find(searchData);
     }

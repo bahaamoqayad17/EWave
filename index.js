@@ -17,7 +17,7 @@ const admin = require("firebase-admin");
 app.use(
   cors({
     origin: "*",
-    methods: "GET,HEAD,PATCH,POST,DELETE",
+    methods: "GET,HEAD,PATCH,PUT,POST,DELETE",
   })
 );
 

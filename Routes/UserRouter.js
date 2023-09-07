@@ -18,7 +18,7 @@ router.route("/").get(UserController.index).post(UserController.create);
 router
   .route("/:id")
   .get(UserController.show)
-  .put(UserController.update)
+  .put(AuthController.restrictTo("Admin"), UserController.update)
   .delete(UserController.delete);
 
 module.exports = router;

@@ -14,7 +14,7 @@ const SendEmail = async (to, subject, text) => {
 
   transporter
     .verify()
-    .then((test) => console.log(test))
+    .then((data) => console.log(data))
     .catch((error) => console.log(error));
 
   const mailOptions = {

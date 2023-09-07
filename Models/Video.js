@@ -12,11 +12,11 @@ const Schema = mongoose.Schema(
     },
     description: {
       type: String,
-      required: [true, "description is required"],
+      // required: [true, "description is required"],
     },
     status: {
       type: String,
-      enum: ["Paid", "Free"],
+      enum: ["Paid", "Free", "All"],
     },
   },
   { timestamps: true }

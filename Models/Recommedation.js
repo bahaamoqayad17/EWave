@@ -70,7 +70,7 @@ const Schema = mongoose.Schema(
       required: [true, "Comment is required"],
     },
     is_paid: {
-      type: Number, // 0: not paid, 1: paid
+      type: Number, // 0: free, 1: paid, 2:all
       required: [true, "Is paid is required"],
     },
     category: {

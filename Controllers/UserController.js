@@ -45,10 +45,6 @@ exports.verifyCode = CatchAsync(async (req, res, next) => {
 
   const { code: storedCode, timestamp } = resetData;
 
-  console.log({ code });
-  console.log({ email });
-  console.log({ storedCode });
-
   // Check if the code is correct and not expired (90 seconds expiration)
   if (code !== storedCode || Date.now() - timestamp > 90000) {
     return res.status(400).json({ message: "Invalid code or expired" });

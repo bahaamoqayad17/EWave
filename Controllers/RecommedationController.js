@@ -81,7 +81,10 @@ exports.paidCategory = CatchAsync(async (req, res, next) => {
         .json({ meesage: "Your Subscription has been Expired" });
     }
 
-    const data = await Recommedation.find({ is_paid: 1, category });
+    const data = await Recommedation.find({
+      is_paid: { $in: [1, 2] },
+      category,
+    });
 
     if (!data) {
       return next(new AppError("No document found with that ID", 404));
@@ -95,7 +98,9 @@ exports.paidCategory = CatchAsync(async (req, res, next) => {
 });
 
 exports.unPaidCategory = CatchAsync(async (req, res, next) => {
-  const data = await Recommedation.find({ is_paid: 0 });
+  const data = await Recommedation.find({
+    is_paid: { $in: [0, 2] },
+  });
 
   if (!data) {
     return next(new AppError("No document found with that ID", 404));
@@ -109,7 +114,9 @@ exports.unPaidCategory = CatchAsync(async (req, res, next) => {
 
 exports.paid = CatchAsync(async (req, res, next) => {
   if (req.user.role === "Admin") {
-    const data = await Recommedation.find({ is_paid: 1 });
+    const data = await Recommedation.find({
+      is_paid: { $in: [1, 2] },
+    });
     const count = await Recommedation.countDocuments({ is_paid: 1 });
 
     if (!data) {
@@ -130,7 +137,9 @@ exports.paid = CatchAsync(async (req, res, next) => {
       return next(new AppError("Your Subscription has been Expired", 400));
     }
 
-    const data = await Recommedation.find({ is_paid: 1 });
+    const data = await Recommedation.find({
+      is_paid: { $in: [1, 2] },
+    });
     const count = await Recommedation.countDocuments({ is_paid: 1 });
 
     if (!data) {
@@ -143,4 +152,19 @@ exports.paid = CatchAsync(async (req, res, next) => {
       count,
     });
   }
+});
+
+exports.deleteAll = CatchAsync(async (req, res, next) => {
+  const data = await Recommedation.deleteMany({
+    _id: { $in: req.body },
+  });
+
+  if (!data) {
+    return next(new AppError("No document found with that ID", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data,
+  });
 });
