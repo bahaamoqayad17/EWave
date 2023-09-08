@@ -39,8 +39,10 @@ exports.resizeImage = CatchAsync(async (req, res, next) => {
 });
 
 exports.index = CatchAsync(async (req, res, next) => {
-  const data = await Recommedation.find({ is_paid: 0 });
-  const count = await Recommedation.countDocuments({ is_paid: 0 });
+  const data = await Recommedation.find({ is_paid: { $in: [0, 2] } });
+  const count = await Recommedation.countDocuments({
+    is_paid: { $in: [0, 2] },
+  });
 
   res.status(200).json({
     status: "success",
@@ -58,7 +60,10 @@ exports.paidCategory = CatchAsync(async (req, res, next) => {
   const { category } = req.params;
 
   if (req.user.role === "Admin") {
-    const data = await Recommedation.find({ is_paid: 1 });
+    const data = await Recommedation.find({
+      is_paid: { $in: [1, 2] },
+      category,
+    });
 
     if (!data) {
       return next(new AppError("No document found with that ID", 404));
@@ -117,7 +122,9 @@ exports.paid = CatchAsync(async (req, res, next) => {
     const data = await Recommedation.find({
       is_paid: { $in: [1, 2] },
     });
-    const count = await Recommedation.countDocuments({ is_paid: 1 });
+    const count = await Recommedation.countDocuments({
+      is_paid: { $in: [1, 2] },
+    });
 
     if (!data) {
       return next(new AppError("No document found with that ID", 404));
