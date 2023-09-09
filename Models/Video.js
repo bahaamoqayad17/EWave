@@ -18,6 +18,10 @@ const Schema = mongoose.Schema(
       type: String,
       enum: ["Paid", "Free", "All"],
     },
+    pinned: {
+      type: Number,
+      default: 0, // 0: "Not Pinned", 1: "Pinned",
+    },
   },
   { timestamps: true }
 );

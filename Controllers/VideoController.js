@@ -10,7 +10,9 @@ exports.delete = factory.delete(Video);
 
 exports.paid = CatchAsync(async (req, res, next) => {
   if (req.user.role === "Admin") {
-    const data = await Video.find({ status: { $in: ["Paid", "All"] } });
+    const data = await Video.find({ status: { $in: ["Paid", "All"] } }).sort({
+      pinned: -1,
+    });
 
     res.status(200).json({
       status: "success",
@@ -30,7 +32,9 @@ exports.paid = CatchAsync(async (req, res, next) => {
       .json({ meesage: "Your Subscription has been Expired" });
   }
 
-  const data = await Video.find({ status: { $in: ["Paid", "All"] } });
+  const data = await Video.find({ status: { $in: ["Paid", "All"] } }).sort({
+    pinned: -1,
+  });
 
   res.status(200).json({
     status: "success",
@@ -39,7 +43,9 @@ exports.paid = CatchAsync(async (req, res, next) => {
 });
 
 exports.free = CatchAsync(async (req, res, next) => {
-  const data = await Video.find({ status: { $in: ["Free", "All"] } });
+  const data = await Video.find({ status: { $in: ["Free", "All"] } }).sort({
+    pinned: -1,
+  });
 
   res.status(200).json({
     status: "success",
