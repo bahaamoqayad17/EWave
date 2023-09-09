@@ -128,9 +128,17 @@ exports.paidCategory = CatchAsync(async (req, res, next) => {
 });
 
 exports.unPaidCategory = CatchAsync(async (req, res, next) => {
-  const data = await Recommedation.find({
-    is_paid: { $in: [0, 2] },
-  });
+  const features = new ApiFeatures(
+    Recommedation.find({
+      is_paid: { $in: [0, 2] },
+    }),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const data = await features.query;
 
   if (!data) {
     return next(new AppError("No document found with that ID", 404));
