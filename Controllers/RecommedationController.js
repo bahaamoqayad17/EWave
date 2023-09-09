@@ -4,6 +4,7 @@ const CatchAsync = require("../utils/CatchAsync");
 const AppError = require("../utils/AppError");
 const multer = require("multer");
 const sharp = require("sharp");
+const ApiFeatures = require("../utils/ApiFeatures");
 
 const multerStorage = multer.memoryStorage();
 
@@ -39,7 +40,15 @@ exports.resizeImage = CatchAsync(async (req, res, next) => {
 });
 
 exports.index = CatchAsync(async (req, res, next) => {
-  const data = await Recommedation.find({ is_paid: { $in: [0, 2] } });
+  const features = new ApiFeatures(
+    Recommedation.find({ is_paid: { $in: [0, 2] } }),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const data = await features.query;
   const count = await Recommedation.countDocuments({
     is_paid: { $in: [0, 2] },
   });
@@ -60,10 +69,18 @@ exports.paidCategory = CatchAsync(async (req, res, next) => {
   const { category } = req.params;
 
   if (req.user.role === "Admin") {
-    const data = await Recommedation.find({
-      is_paid: { $in: [1, 2] },
-      category,
-    });
+    const features = new ApiFeatures(
+      Recommedation.find({
+        is_paid: { $in: [1, 2] },
+        category,
+      }),
+      req.query
+    )
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const data = await features.query;
 
     if (!data) {
       return next(new AppError("No document found with that ID", 404));
@@ -86,10 +103,18 @@ exports.paidCategory = CatchAsync(async (req, res, next) => {
         .json({ meesage: "Your Subscription has been Expired" });
     }
 
-    const data = await Recommedation.find({
-      is_paid: { $in: [1, 2] },
-      category,
-    });
+    const features = new ApiFeatures(
+      Recommedation.find({
+        is_paid: { $in: [1, 2] },
+        category,
+      }),
+      req.query
+    )
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const data = await features.query;
 
     if (!data) {
       return next(new AppError("No document found with that ID", 404));
@@ -119,9 +144,17 @@ exports.unPaidCategory = CatchAsync(async (req, res, next) => {
 
 exports.paid = CatchAsync(async (req, res, next) => {
   if (req.user.role === "Admin") {
-    const data = await Recommedation.find({
-      is_paid: { $in: [1, 2] },
-    });
+    const features = new ApiFeatures(
+      Recommedation.find({
+        is_paid: { $in: [1, 2] },
+      }),
+      req.query
+    )
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const data = await features.query;
     const count = await Recommedation.countDocuments({
       is_paid: { $in: [1, 2] },
     });
@@ -144,10 +177,21 @@ exports.paid = CatchAsync(async (req, res, next) => {
       return next(new AppError("Your Subscription has been Expired", 400));
     }
 
-    const data = await Recommedation.find({
+    const features = new ApiFeatures(
+      Recommedation.find({
+        is_paid: { $in: [1, 2] },
+      }),
+      req.query
+    )
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const data = await features.query;
+
+    const count = await Recommedation.countDocuments({
       is_paid: { $in: [1, 2] },
     });
-    const count = await Recommedation.countDocuments({ is_paid: 1 });
 
     if (!data) {
       return next(new AppError("No document found with that ID", 404));

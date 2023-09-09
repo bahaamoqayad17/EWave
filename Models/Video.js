@@ -4,11 +4,11 @@ const Schema = mongoose.Schema(
   {
     url: {
       type: String,
-      required: [true, "url is required"],
+      required: [true, "Link is required"],
     },
     title: {
       type: String,
-      required: [true, "title is required"],
+      required: [true, "Title is required"],
     },
     description: {
       type: String,
@@ -17,6 +17,13 @@ const Schema = mongoose.Schema(
     status: {
       type: String,
       enum: ["Paid", "Free", "All"],
+    },
+    image: {
+      type: String,
+      required: [true, "Image is required"],
+      transform: function (image) {
+        return `${process.env.BASE_URL}${image}`;
+      },
     },
     pinned: {
       type: Number,

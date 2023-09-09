@@ -1,6 +1,41 @@
 const factory = require("./FactoryHandler");
 const Video = require("../Models/Video");
 const CatchAsync = require("../utils/CatchAsync");
+const multer = require("multer");
+const sharp = require("sharp");
+
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb(new AppError("Not an image! Please upload only images.", 400), false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+exports.uploadImage = upload.single("image");
+
+exports.resizeImage = CatchAsync(async (req, res, next) => {
+  if (!req.file) {
+    delete req.body.image;
+    return next();
+  }
+
+  req.body.image = `video-${Date.now()}.png`;
+
+  await sharp(req.file.buffer)
+    .toFormat("png")
+    .jpeg({ quality: 90 })
+    .toFile(`public/${req.body.image}`);
+
+  next();
+});
 
 exports.index = factory.index(Video);
 exports.create = factory.create(Video);
