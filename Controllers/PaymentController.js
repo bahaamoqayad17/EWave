@@ -12,11 +12,11 @@ exports.delete = factory.delete(Payment);
 
 exports.pay = CatchAsync(async (req, res, next) => {
   paypal.configure({
-    mode: "sandbox",
+    mode: "live",
     client_id:
-      "AcHKVxMOhJS6ZBoYdupt9YAOS-2U8bTNvsvNxDLKRU6YKy0nKIunDiqe43hmKSAZ-ShAKSTgCqjKlzKZ",
+      "Ab-vgWU9UeL4XgslWaIYnRpYhhxANHTa2oLBMyfNwvadX_3nntAheH-ju4H9m1rsbbaIoXmtJykQwS0z",
     client_secret:
-      "EJkZ1C8iZ058OzLo1pw9yJtRRvAr4bi1Tl4BWQpotXCcYI6HoGPEUmYgAcatdqPygRmyXsgmqLDY8K5m",
+      "EBm3j-N9BdL9OI4YYdXui7j3Q2t1T-EJ9-9nkfnldG2oCWE-Yw3lwL1RcGg8-B1n7UBJ2PxIISH6sJ9z",
   });
 
   const create_payment_json = {
