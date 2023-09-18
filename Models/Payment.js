@@ -15,8 +15,12 @@ const Schema = mongoose.Schema(
     },
     currency: {
       type: String,
+      default: "USD",
     },
-    status: String,
+    status: {
+      type: String,
+      default: "Pending",
+    },
   },
   { timestamps: true }
 );

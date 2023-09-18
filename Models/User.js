@@ -21,8 +21,8 @@ const Schema = new mongoose.Schema({
   },
   mobile_number: {
     type: String,
-    required: [true, "Please provide your mobile number"],
-    unique: true,
+    // required: [true, "Please provide your mobile number"],
+    // unique: true,
   },
   password: {
     type: String,

@@ -4,8 +4,9 @@ const AuthController = require("../Controllers/AuthController");
 
 const router = express.Router();
 
-router.route("/success").get(PaymentController.success);
+router.route("/success/:id").post(PaymentController.success);
 router.route("/cancel").get(PaymentController.cancel);
+router.route("/paymentPage").get(PaymentController.paymentPage);
 
 router.use(AuthController.protect);
 

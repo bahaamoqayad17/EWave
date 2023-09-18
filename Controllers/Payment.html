@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>PayPal Checkout</title>
+  </head>
+
+  <body>
+    <div id="paypal-button-container"></div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AcHKVxMOhJS6ZBoYdupt9YAOS-2U8bTNvsvNxDLKRU6YKy0nKIunDiqe43hmKSAZ-ShAKSTgCqjKlzKZ&currency=USD"></script>
+
+    <script>
+            paypal.Buttons({
+                createOrder: function (data, actions) {
+
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: '120.00',
+                    currency: 'USD',
+                  },
+                },
+              ],
+            });
+          },
+
+                onApprove: function (data, actions) {
+          return actions.order.capture().then(function (details) {
+            const urlParams = new URLSearchParams(window.location.search);
+      const idFromUrl = urlParams.get("id");
+            fetch(`http://localhost:4040/api/v1/payments/success/${idFromUrl}`, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      details,
+                      userID:window.location.href.split('/').pop
+                    }),
+                  })
+                  alert('Payment Success');
+            // Add code to handle a successful payment (e.g., order fulfillment)
+          });
+        },
+
+                onError: function (err) {
+                  fetch('http://localhost:4040/api/v1/payments/cancel', {
+                    method: 'get',
+                  })
+                  alert('Payment Cancelled');
+        },
+
+
+            }).render('#paypal-button-container');
+    </script>
+  </body>
+</html>
