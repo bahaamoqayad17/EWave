@@ -21,6 +21,7 @@ const Schema = new mongoose.Schema({
   },
   mobile_number: {
     type: String,
+    default: "1234567890",
     // required: [true, "Please provide your mobile number"],
     // unique: true,
   },
