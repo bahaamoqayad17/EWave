@@ -56,3 +56,19 @@ exports.success = CatchAsync(async (req, res, next) => {
 exports.cancel = CatchAsync(async (req, res, next) => {
   res.send("<h1>Payment Cancelled</h1>");
 });
+
+exports.apple = CatchAsync(async (req, res, next) => {
+  User.findByIdAndUpdate(
+    { _id: req.user._id },
+    {
+      is_paid: 1,
+      expire_payment: Date.now() + 30 * 24 * 60 * 60 * 1000,
+    },
+    (updateError, updatedUser) => {
+      if (updateError) {
+        res.send("Something went wrong");
+      }
+      res.send("Payment Success");
+    }
+  );
+});

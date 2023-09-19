@@ -12,6 +12,7 @@ router.use(AuthController.protect);
 
 router.route("/").get(PaymentController.index).post(PaymentController.create);
 router.route("/pay").post(PaymentController.pay);
+router.route("/apple").post(PaymentController.apple);
 
 router
   .route("/:id")
