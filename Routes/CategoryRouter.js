@@ -10,7 +10,6 @@ router.use(AuthController.protect);
 
 router
   .route("/")
-  .get(CategoryController.index)
   .post(
     CategoryController.uploadImage,
     CategoryController.resizeImage,
