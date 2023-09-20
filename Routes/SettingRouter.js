@@ -4,9 +4,11 @@ const AuthController = require("../Controllers/AuthController");
 
 const router = express.Router();
 
+router.route("/").get(SettingController.index);
+
 router.use(AuthController.protect);
 
-router.route("/").get(SettingController.index).post(SettingController.create);
+router.route("/").post(SettingController.create);
 
 router.route("/pushNotification").post(SettingController.pushNotification);
 
