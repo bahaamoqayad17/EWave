@@ -4,11 +4,12 @@ const AuthController = require("../Controllers/AuthController");
 
 const router = express.Router();
 
+router.route("/").get(ArticleController.index);
+
 router.use(AuthController.protect);
 
 router
   .route("/")
-  .get(ArticleController.index)
   .post(
     ArticleController.uploadImage,
     ArticleController.resizeImage,

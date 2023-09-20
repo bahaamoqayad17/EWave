@@ -4,6 +4,8 @@ const AuthController = require("../Controllers/AuthController");
 
 const router = express.Router();
 
+router.route("/free").get(VideoController.free);
+
 router.use(AuthController.protect);
 
 router
@@ -15,7 +17,6 @@ router
     VideoController.create
   );
 router.route("/paid").get(VideoController.paid);
-router.route("/free").get(VideoController.free);
 
 router
   .route("/:id")

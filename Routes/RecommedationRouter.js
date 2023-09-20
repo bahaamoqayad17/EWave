@@ -4,6 +4,8 @@ const AuthController = require("../Controllers/AuthController");
 
 const router = express.Router();
 
+router.route("/unpaid").get(RecommedationController.unPaidCategory);
+
 router.use(AuthController.protect);
 
 router
@@ -18,7 +20,6 @@ router
 router.route("/paid").get(RecommedationController.paid);
 
 router.route("/paid/:category").get(RecommedationController.paidCategory);
-router.route("/unpaid").get(RecommedationController.unPaidCategory);
 router.route("/deleteAll").post(RecommedationController.deleteAll);
 
 router
