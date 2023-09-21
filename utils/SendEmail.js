@@ -8,7 +8,7 @@ const SendEmail = async (to, subject, text) => {
     secure: true,
     auth: {
       user: "elliottchart2015@gmail.com",
-      pass: "crsklqwemnhniljn",
+      pass: "lmhjphtuuazmqajf",
     },
   });
 
