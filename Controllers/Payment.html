@@ -31,7 +31,7 @@
           return actions.order.capture().then(function (details) {
             const urlParams = new URLSearchParams(window.location.search);
       const idFromUrl = urlParams.get("id");
-            fetch(`http://localhost:4040/api/v1/payments/success/${idFromUrl}`, {
+            fetch(`http://ewaveonline.com:4040/api/v1/payments/success/${idFromUrl}`, {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
@@ -47,7 +47,7 @@
         },
 
                 onError: function (err) {
-                  fetch('http://localhost:4040/api/v1/payments/cancel', {
+                  fetch('http://ewaveonline.com:4040/api/v1/payments/cancel', {
                     method: 'get',
                   })
                   alert('Payment Cancelled');
