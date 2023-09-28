@@ -7,8 +7,8 @@ const SendEmail = async (to, subject, text) => {
     port: 465,
     secure: true,
     auth: {
-      user: "elliottchart2015@gmail.com",
-      pass: "lmhjphtuuazmqajf",
+      user: "ewaveapp2023@gmail.com",
+      pass: "pvqoeixexthnlqks",
     },
   });
 
