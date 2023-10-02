@@ -11,7 +11,7 @@ exports.update = factory.update(Setting);
 exports.delete = factory.delete(Setting);
 
 exports.pushNotification = CatchAsync(async (req, res, next) => {
-  const tokens = await User.find().select("fcm_token");
+  const tokens = await User.distinct("fcm_token");
 
   const validTokens = tokens.filter((token) => token.fcm_token);
 
