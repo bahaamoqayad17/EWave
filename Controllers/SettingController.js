@@ -18,7 +18,7 @@ exports.pushNotification = CatchAsync(async (req, res, next) => {
       title: req.body.title,
       body: req.body.body,
     },
-    tokens: tokens.filter((token) => token !== "" || token !== null),
+    tokens: tokens.filter((token) => token !== ""),
   };
 
   const data = await admin.messaging().sendMulticast(message);
