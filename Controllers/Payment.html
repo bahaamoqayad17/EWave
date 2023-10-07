@@ -14,12 +14,14 @@
     <script>
             paypal.Buttons({
                 createOrder: function (data, actions) {
+      const discount = urlParams.get("discount");
+
 
             return actions.order.create({
               purchase_units: [
                 {
                   amount: {
-                    value: 170,
+                    value: discount ? "170.00" :"130",
                     currency: 'USD',
                   },
                 },
@@ -42,7 +44,6 @@
                     }),
                   })
                   alert('Payment Success');
-            // Add code to handle a successful payment (e.g., order fulfillment)
           });
         },
 
