@@ -43,7 +43,7 @@
                       userID:window.location.href.split('/').pop
                     }),
                   })
-                  alert('Payment Success');
+                  alert('Payment Success, Go Back to The App');
           });
         },
 
@@ -51,7 +51,7 @@
                   fetch('http://ewaveonline.com:4040/api/v1/payments/cancel', {
                     method: 'get',
                   })
-                  alert('Payment Cancelled');
+                  alert('Payment Cancelled, Try Again Later');
         },
 
 

@@ -12,6 +12,7 @@ const PaymentRouter = require("./Routes/PaymentRouter");
 const UserRouter = require("./Routes/UserRouter");
 const VideoRouter = require("./Routes/VideoRouter");
 const CategoryRouter = require("./Routes/CategoryRouter");
+const MessageRouter = require("./Routes/MessageRouter");
 const admin = require("firebase-admin");
 
 app.use(
@@ -39,6 +40,7 @@ app.use("/api/v1/payments", PaymentRouter);
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/videos", VideoRouter);
 app.use("/api/v1/categories", CategoryRouter);
+app.use("/api/v1/messages", MessageRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError("Can't find " + req.originalUrl + " on this server", 404));
