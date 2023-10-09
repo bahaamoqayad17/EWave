@@ -2,10 +2,22 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema(
   {
-    name: String,
-    email: String,
-    mobile_number: String,
-    message: String,
+    name: {
+      type: String,
+      required: [true, "Please Give Us Your Name"],
+    },
+    email: {
+      type: String,
+      required: [true, "Please Give Us Your Email"],
+    },
+    mobile_number: {
+      type: String,
+      required: [true, "Please Give Us Your Mobile Number"],
+    },
+    message: {
+      type: String,
+      required: [true, "Please Give Us Your Message"],
+    },
   },
   { timestamps: true }
 );
