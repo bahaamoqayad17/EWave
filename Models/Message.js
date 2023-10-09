@@ -5,7 +5,7 @@ const Schema = mongoose.Schema(
     name: String,
     email: String,
     mobile_number: String,
-    messages: String,
+    message: String,
   },
   { timestamps: true }
 );
