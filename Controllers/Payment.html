@@ -14,7 +14,9 @@
     <script>
             paypal.Buttons({
                 createOrder: function (data, actions) {
-      const discount = urlParams.get("discount");
+            const urlParams = new URLSearchParams(window.location.search);
+            const discount = urlParams.get("discount");
+            console.log(discount);
 
 
             return actions.order.create({
